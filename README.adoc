@@ -1,0 +1,100 @@
+= jbang-gradle-plugin
+:linkattrs:
+:project-owner:   kordamp
+:project-repo:    maven
+:project-name:    jbang-gradle-plugin
+:project-group:   org.kordamp.gradle
+:project-version: 0.1.0
+:icons:           font
+
+image:http://img.shields.io/travis/{project-owner}/{project-name}/master.svg["Build Status (travis)", link="https://travis-ci.org/{project-owner}/{project-name}"]
+image:https://github.com/{project-owner}/{project-name}/workflows/Build/badge.svg["Build Status", link="https://github.com/{project-owner}/{project-name}/actions"]
+image:http://img.shields.io/badge/license-ASL2-blue.svg["ASL2 Licensed", link="http://opensource.org/licenses/ASL2"]
+image:https://api.bintray.com/packages/{project-owner}/{project-repo}/{project-name}/images/download.svg[link="https://bintray.com/{project-owner}/{project-repo}/{project-name}/_latestVersion"]
+image:https://img.shields.io/badge/donations-Patreon-orange.svg[link="https://www.patreon.com/user?u=6609318"]
+
+---
+
+The JBang Gradle plugin allows JBang scripts to be executed during a Gradle build.
+
+The plugin attempts to use an existing JBang installation. If no JBang installation is found, the plugin will install
+JBang by downloading and caching the latest version binaries (in your local Gradle cache directory) for subsequent runs.
+
+== Usage
+
+This plugin adds a new task of type `org.kordamp.gradle.plugin.jbang.tasks.JBangTask` named `jbang` that accepts the
+following properties
+
+[options="header", cols="5*<,^"]
+|===
+| Property   | Type         | System            | Environment       | Default                         | Required
+| script     | String       | jbang.script      | JBANG_SCRIPT      |                                 | icon:check[role="green"]
+| args       | List<String> | jbang.args        | JBANG_ARGS        | []                              | icon:times[role="red"]
+| trusts     | List<String> | jbang.trusts      | JBANG_TRUSTS      | []                              | icon:times[role="red"]
+| version    | String       | jbang.version     | JBANG_VERSION     | 0.48.0                          | icon:check[role="red"]
+| installDir | Directory    | jbang.install.dir | JBANG_INSTALL_DIR | $gradleUserHomeDir/caches/jbang | icon:times[role="red"]
+|===
+
+[horizontal]
+script:: The script to be executed by JBang.
+args:: The arguments to be used in the JBang script (if any)
+trusts:: If the script resides in a remote location, this parameter specifies what URLs should be trusted. See
+link:https://github.com/jbangdev/jbang#urls-from-trusted-sources[URLs from Trusted Sources] for more information
+version:: If your environment lacks the JBang binaries in the PATH, you can specify the JBang version to be installed.
+The default value will be the plugin's version
+
+Task property values may be specified directly or using their respective environment variable, System property, or project
+property respectively, for example
+
+[source]
+----
+$ gradle jbang -Djbang.script=hello.jsh -Djbang.args="Hello world"
+----
+
+If the `link:https://kordamp.org/kordamp-gradle-plugins/#_org_kordamp_gradle_inline[org.kordamp.gradle.inline]` plugin
+were to be applied to your build (via `settings.gradle`) then you may invoke this plugin without modifying your build file
+
+[source]
+[subs="attributes"]
+----
+$ gradle {project-group}:{project-name}:{project-version}:jbang -Pjbang.script=hello.java
+----
+
+== Installation
+
+Option #1
+[source,groovy]
+[subs="attributes"]
+----
+buildscript {
+    repositories {
+        jcenter()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath '{project-group}:{project-name}:{project-version}'
+    }
+}
+apply plugin: '{project-group}.jbang'
+----
+
+Option #2
+[source,groovy]
+[subs="attributes"]
+----
+plugins {
+    id '{project-group}.jbang' version '{project-version}'
+}
+----
+
+== Building
+
+If you want to build your own release then execute the following
+
+[source]
+----
+$ ./gradlew publishToMavenLocal
+----
+
+This will push all artifacts to your local Maven repository from which you may consume them.
+
