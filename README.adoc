@@ -5,10 +5,15 @@
 :project-name:    jbang-gradle-plugin
 :project-group:   org.kordamp.gradle
 :project-version: 0.1.0
-ifndef::env-github[:icons: font]
+ifndef::env-github[]
+endif::[]
+:icons:           font
+:required-icon:   icon:check[role="green"]
+:optional-icon:   icon:times[role="red"]
 ifdef::env-github[]
-:required-icon: :check:
-:optional-icon: :times:
+:required-icon:   :white_check_mark:
+:optional-icon:   :x:
+endif::[]
 
 image:https://github.com/{project-owner}/{project-name}/workflows/Build/badge.svg["Build Status", link="https://github.com/{project-owner}/{project-name}/actions"]
 image:http://img.shields.io/badge/license-ASL2-blue.svg["ASL2 Licensed", link="http://opensource.org/licenses/ASL2"]
