@@ -5,9 +5,11 @@
 :project-name:    jbang-gradle-plugin
 :project-group:   org.kordamp.gradle
 :project-version: 0.1.0
-:icons:           font
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:required-icon: :check:
+:optional-icon: :times:
 
-image:http://img.shields.io/travis/{project-owner}/{project-name}/master.svg["Build Status (travis)", link="https://travis-ci.org/{project-owner}/{project-name}"]
 image:https://github.com/{project-owner}/{project-name}/workflows/Build/badge.svg["Build Status", link="https://github.com/{project-owner}/{project-name}/actions"]
 image:http://img.shields.io/badge/license-ASL2-blue.svg["ASL2 Licensed", link="http://opensource.org/licenses/ASL2"]
 image:https://api.bintray.com/packages/{project-owner}/{project-repo}/{project-name}/images/download.svg[link="https://bintray.com/{project-owner}/{project-repo}/{project-name}/_latestVersion"]
@@ -28,11 +30,11 @@ following properties
 [options="header", cols="5*<,^"]
 |===
 | Property   | Type         | System            | Environment       | Default                         | Required
-| script     | String       | jbang.script      | JBANG_SCRIPT      |                                 | icon:check[role="green"]
-| args       | List<String> | jbang.args        | JBANG_ARGS        | []                              | icon:times[role="red"]
-| trusts     | List<String> | jbang.trusts      | JBANG_TRUSTS      | []                              | icon:times[role="red"]
-| version    | String       | jbang.version     | JBANG_VERSION     | 0.48.0                          | icon:check[role="red"]
-| installDir | Directory    | jbang.install.dir | JBANG_INSTALL_DIR | $gradleUserHomeDir/caches/jbang | icon:times[role="red"]
+| script     | String       | jbang.script      | JBANG_SCRIPT      |                                 | {required-icon}
+| args       | List<String> | jbang.args        | JBANG_ARGS        | [ ]                             | {optional-icon}
+| trusts     | List<String> | jbang.trusts      | JBANG_TRUSTS      | [ ]                             | {optional-icon}
+| version    | String       | jbang.version     | JBANG_VERSION     | 0.48.0                          | {optional-icon}
+| installDir | Directory    | jbang.install.dir | JBANG_INSTALL_DIR | $gradleUserHomeDir/caches/jbang | {optional-icon}
 |===
 
 [horizontal]
